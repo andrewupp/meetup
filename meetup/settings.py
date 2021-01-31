@@ -26,6 +26,7 @@ SECRET_KEY = '(1lh3tu0_skrc8i(pf5#yk+e)f(znwjou7ez1&8d0fitep1qq@'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'meetup-eb-env.eba-ur2yzzpk.us-west-2.elasticbeanstalk.com',
     '127.0.0.1:8000',
     '127.0.0.1',
     'localhost:8000',
@@ -84,29 +85,16 @@ WSGI_APPLICATION = 'meetup.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-
-if 'RDS_HOSTNAME' in os.environ:    # for aws ec2 env variables
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ['RDS_DB_NAME'],
-            'USER': os.environ['RDS_USERNAME'],
-            'PASSWORD': os.environ['RDS_PASSWORD'],
-            'HOST': os.environ['RDS_HOSTNAME'],
-            'PORT': os.environ['RDS_PORT'],
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "meetup",  # 目標資料庫的名稱
+        "USER": "admin",  # 資料庫帳號
+        "PASSWORD": "developer123",  # 資料庫密碼
+        "HOST": "database-2.c8l2hnwwgpd7.ap-southeast-1.rds.amazonaws.com",  # 主機位置，可以先測本地localhost
+        "PORT": " 3306 ",  # 設定連接埠
     }
-else:                               # specific database endpoint
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": "de.sqlite3",  # 目標資料庫的名稱
-            # "USER": "admin",  # 資料庫帳號
-            # "PASSWORD": "dev123",  # 資料庫密碼
-            "HOST": "127.0.0.1",  # 主機位置，可以先測本地localhost
-            "PORT": " 3306 ",  # 設定連接埠
-        }
-    }
+}
 
 
 # Password validation
